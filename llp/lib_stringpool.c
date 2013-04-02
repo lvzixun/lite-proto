@@ -1,4 +1,4 @@
-#include "lp_conf.h"
+#include "../lp_conf.h"
 #include "lib_stringpool.h"
 #include "lib_table.h"
 

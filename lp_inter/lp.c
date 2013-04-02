@@ -1,5 +1,5 @@
 #include "lp.h"
-#include "lp_conf.h"
+#include "../lp_conf.h"
 #include "lp_file.h"
 #include <stdlib.h>
 #include <stdio.h>

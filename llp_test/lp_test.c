@@ -1,6 +1,5 @@
 #include "../llp.h"
 
-#pragma comment(lib, "../llp/sllp/Debug/sllp.lib")
 #define llp_mes struct llp_mes
 #define llp_env struct llp_env
 
@@ -48,11 +47,11 @@ static void test_mes(llp_env* env)
 		int i=0;
 		llp_mes* lm = NULL;
 		for(i=0; i<llp_Rmes_size(lms, "mm"); i++){
-			printf("mm[%d] = %d\n", i, llp_Rmes_integer(lms, "mm", i));
+			printf("mm[%d] = %lld\n", i, llp_Rmes_integer(lms, "mm", i));
 		}
 
 		lm = llp_Rmes_message(lms, "tt", 0);
-		printf("tt.tm_1 = %s\n tt.tm_2=%d\n", llp_Rmes_string(lm, "tm_1", 0), llp_Rmes_integer(lm, "tm_2", 0));
+		printf("tt.tm_1 = %s\n tt.tm_2=%lld\n", llp_Rmes_string(lm, "tm_1", 0), llp_Rmes_integer(lm, "tm_2", 0));
 	}
 
 	dump_mes(lms);
@@ -76,7 +75,7 @@ static void dump_mes(llp_mes* lm)
 
 	printf("\n-------mes_name = %s---------\n", llp_message_name(lm));
 
-	for(idx=1; idx=llp_message_next(lm, idx, &ft); ){
+	for(idx=1; 0!=(idx=llp_message_next(lm, idx, &ft)); ){
 		printf("field_name = %s field_type=%s , field_size=%d\n", ft.name, llpts[ft.type], ft.size);
 	}
 }

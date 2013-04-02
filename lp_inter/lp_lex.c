@@ -1,5 +1,5 @@
 #include "lp_lex.h"
-#include "lp_conf.h"
+#include "../lp_conf.h"
 #include "lp_table.h"
 
 // token typer to string

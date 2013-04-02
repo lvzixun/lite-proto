@@ -1,6 +1,5 @@
 #include "../llp.h"
 #include "lib_mes.h"
-#include "lp_conf.h"
 #include "lib_lp.h"
 #include "lib_table.h"
 #include "lib_io.h"

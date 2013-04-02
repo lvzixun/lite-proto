@@ -50,8 +50,6 @@ static int _llpL_free_mes(lua_State* L)
 // dump type not repeated
 static void _llpDump_ltype(lua_State* L, field_type* ftp, llp_mes* lm, unsigned int idx)
 {
-	int tidx= lua_gettop(L);
-
 	switch(ftp->type)
 	{
 	case LLPT_REAL:
@@ -113,7 +111,6 @@ static void _llpL_dump_data(lua_State* L, llp_mes* lm)
 
 static void _llpL_new_mes(lua_State* L, char* mes_name, llp_mes* lm, lua_CFunction gc_func)
 {
-	slice* sl=NULL;
 	int tidx;
 	l_mes* l_mp;
 

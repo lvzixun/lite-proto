@@ -6,7 +6,6 @@ ifeq ($(OS),Windows_NT)
  RMDIR = rmdir /S /Q
  CP = copy
  N = \\
- OUT = $(_LP) $(_LLP) $(_LLPJAVA)
  JNI = -I"$(JAVA_HOME)\include" -I"$(JAVA_HOME)\include\win32"
  DLLARG = -Wl,--kill-at -fPIC
 else
@@ -17,13 +16,12 @@ else
  RMDIR = $(RM)
  CP = cp
  N = //
- JNI = $(JDK)$(N)bin$(N)java
- OUT = $(_LP) $(_LLP) $(_LLPJAVA)
  JNI = -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
  DLLARG = -Wl -fPIC
  CFLAGS += -fPIC
 endif
 
+OUT = $(_LP) $(_LLP) $(_LLPJAVA)
 CC = gcc
 CFLAGS += -O2 -Wall  
 AR = ar rcu
@@ -56,7 +54,6 @@ AND_JNIP = $(AND_JNI)$(N)src
 ALL : BUILD_PATH  $(OUT)
 	$(CP) lp_conf.h  .$(N)$(LLP_OUT)
 	$(CP) llp.h   .$(N)$(LLP_OUT)
-	cp -rf ./out/* ./out_back
 	@echo  -----build success------
 
 android:
@@ -73,14 +70,11 @@ android:
 	$(CP) llp.h     $(AND_JNIP)
 	ndk-build -C.$(N)$(AND_JNI)$(N)
 
-LP: BUILD_PATH $(_LP)
-
-LLP: BUILD_PATH $(_LLP)
+macos:
+	make  JNI=-I/System/Library/Frameworks/JavaVM.framework/Headers
 
 BUILD_PATH:
 	mkdir $(LLP_OUT) 	 
-	
-
 	
 $(BUILD_LLP_O) : 
 	$(CC) $(CFLAGS) -c -o $@  -I.  $(basename $@).c

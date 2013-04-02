@@ -1,4 +1,4 @@
-#include "llp.h"
+#include "../llp.h"
 #include "llpjava.h"
 
 /*

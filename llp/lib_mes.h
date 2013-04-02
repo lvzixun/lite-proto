@@ -1,6 +1,6 @@
 #ifndef  _LIB_MES_H_
 #define  _LIB_MES_H_
-#include "lp_conf.h"
+#include "../lp_conf.h"
 #include "lib_lp.h"
 #include "lib_al.h"
 

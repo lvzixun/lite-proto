@@ -1,6 +1,6 @@
 #ifndef  _LIB_AL_H_
 #define	 _LIB_AL_H_
-#include "lp_conf.h"
+#include "../lp_conf.h"
 
 struct llp_mes;
 typedef union _llp_value{

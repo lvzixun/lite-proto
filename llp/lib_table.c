@@ -1,6 +1,5 @@
 #include "lib_table.h"
 #include "lib_lp.h"
-#include "lp_conf.h"
 
 static size_t calc_hash(const char* name);
 #define DEF_MAP_LENS		256
