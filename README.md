@@ -66,5 +66,16 @@ llp_Wmes_real(lm, "cc", (float)(-345.67124));
 llp_message_free(lm);
 llp_free_env(env);
 ~~~~
+## message c API
+the read and write message api is defined [`llp.h`]()https://github.com/lvzixun/lite-proto/blob/master/llp.h head file. 
+BTW, see llp_test/lp_test.c for detail.
 
+## binding
+the lite-proto currently to probide lua and java binding.
+
+`llpjava` for java jni binding.
+`llp/llplua.c & llp/llplua.h` for lua binding.
+
+## question 
+send mail to lvzixun@gmail.com
 
