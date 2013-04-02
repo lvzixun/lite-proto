@@ -67,7 +67,7 @@ llp_message_free(lm);
 llp_free_env(env);
 ~~~~
 ## message c API
-the read and write message api is defined [`llp.h`]()https://github.com/lvzixun/lite-proto/blob/master/llp.h head file. 
+the read and write message api is defined [`llp.h`](https://github.com/lvzixun/lite-proto/blob/master/llp.h) head file. 
 
 BTW, see llp_test/lp_test.c for detail.
 
