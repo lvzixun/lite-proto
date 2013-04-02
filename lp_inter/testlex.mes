@@ -1,0 +1,19 @@
+
+
+extern aaaaa;
+
+message test {
+	integer num;
+	string str;
+	real	rl;
+	bytes   data;
+	
+	message demo {
+		integer[] 	num;
+		string[] 	str;
+		real[]		rl;
+		bytes[]   	data;
+	}
+	
+	demo do;
+}

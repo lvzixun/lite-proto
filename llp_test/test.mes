@@ -1,0 +1,15 @@
+
+message testM {
+	integer aa;
+	string  bb;
+	real    cc;
+	bytes   dd;
+	
+	message TM{
+		string tm_1;
+		integer tm_2;
+	}
+
+	TM tt;
+	integer[] mm;
+}
