@@ -48,7 +48,8 @@ lp -o testMes.mes
 # generated  testMes.mes.lpb file.
 ```
 the c codes:
-```
+~~~~.c
+
 env = llp_new_env();
 llp_reg_mes(env, "test.mes.lpb");
 
@@ -64,6 +65,6 @@ llp_Wmes_real(lm, "cc", (float)(-345.67124));
 
 llp_message_free(lm);
 llp_free_env(env);
-```
+~~~~
 
 
