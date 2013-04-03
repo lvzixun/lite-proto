@@ -1,0 +1,13 @@
+wiki.md
+.DS_Store
+*.dsw
+*.dsp
+*.lpb
+*.swap
+*.o
+*.exe
+*.a
+*~
+*.out
+*.txt
+*.bnf
