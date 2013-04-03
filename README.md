@@ -78,6 +78,11 @@ the lite-proto currently to probide lua and java binding.
 
 `llp/llplua.c & llp/llplua.h` for lua binding.
 
+## wiki 
+
+wiki at : https://github.com/lvzixun/lite-proto/wiki
+the google code update info: http://code.google.com/p/lite-proto/
+
 ## question 
 send mail to lvzixun@gmail.com
 

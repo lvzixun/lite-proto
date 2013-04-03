@@ -4,7 +4,6 @@
 
 int read_file(char* file_name, slice* sp)
 {
-	int ret = LP_TRUE;
 	FILE* fp = NULL;
 	long fs = 0;
 	
@@ -17,9 +16,8 @@ int read_file(char* file_name, slice* sp)
 	memset(sp->sp, 0, sp->sp_size);
 	sp->b_sp = sp->sp;
 	
-	if(fread(sp->sp, sizeof(char), sp->sp_size, fp) != sp->sp_size*sizeof(char))
-		ret = LP_FAIL;
+	fread(sp->sp, sizeof(char), sp->sp_size, fp);
 	fclose(fp);
-	return ret;
+	return LP_TRUE;
 }
 

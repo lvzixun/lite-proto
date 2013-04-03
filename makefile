@@ -23,7 +23,7 @@ endif
 
 OUT = $(_LP) $(_LLP) $(_LLPJAVA)
 CC = gcc
-CFLAGS += -O2 -Wall  
+CFLAGS += -O2 -g -Wall  
 AR = ar rcu
 
 # lite-proto interpreter exec 
