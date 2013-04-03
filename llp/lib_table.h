@@ -50,14 +50,4 @@ int lib_Fmap_add(field_map* f_map,  char* field_name, int id);
 int* lib_Fmap_find(field_map* f_map, char* field_name);
 
 
-
-/*
-
-int lib_table_new(llp_table* lt, size_t size, byte type);
-struct _lp_value* lib_table_add(llp_table* lt, char* name);
-struct _lp_value* lib_table_look(llp_table* lt, char* name);
-int lib_table_del(llp_table* lt, char* name);
-int lib_table_free(llp_table* lt);
-*/
-
 #endif

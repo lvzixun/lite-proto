@@ -31,11 +31,6 @@ typedef struct _t_def_mes{
 	llp_uint32		message_count;		// field count
 }t_def_mes;
 
-// reference self 
-typedef struct _rs_node{
-	t_def_mes* p;
-	struct _rs_node* next;	
-}rs_node;
 
 typedef struct llp_env{		
 	llp_map* dmes;			// message body
