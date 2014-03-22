@@ -1,4 +1,3 @@
-local util = require "util"
 local lpeg = require "lpeg"
 
 local tostring = tostring
@@ -54,6 +53,7 @@ local field = (repeated_type + internal_type + message_type) * pass * name * pas
   function (type, is_repeated, name)
     return {
       type = "field",
+      line = cur_line,
       is_repeated = is_repeated,
       field_type = type,
       field_name = name
@@ -75,16 +75,39 @@ local M = P{
     function (name, ...)
       return {
         type = "message",
+        msg_name = name,
+        line = cur_line,
         value = {...}
       }
     end
 }
 
 
-
 local G = pass * Ct((M * pass)^0)
 
-local function gen(s)
+
+----- generating ast
+
+local mt = {
+  internal = {
+    ["integer"] = true,
+    ["string"] = true,
+    ["real"] = true,
+    ["bytes"] = true,
+  }
+}
+mt.__index = mt
+
+local function create()
+  local obj = {
+    msg_sym = {},
+    msg_chain = {}
+  }
+
+  return setmetatable(obj, mt)
+end
+
+function mt:gen_ast(s)
   cur_line = 1
 
   local success, ret = pcall(
@@ -92,34 +115,123 @@ local function gen(s)
       return lpeg.match(G, s)
     end)
 
+  return ret
+end
+
+function mt:gen_fix(ast)
+  local success, ret = pcall(
+    function ()
+      self:fix_ast(ast)
+    end)
+
   if success then
-    assert(type(ret) == "table")
+    return self.msg_chain
+  else
+    return ret
+  end
+end
+
+local function add_field(ret, v)
+  assert(v.type == "field")
+  v.cur_line = nil
+  v.type = nil
+  table.insert(ret.value, v)
+end
+
+
+function mt:add_msg(ret)
+  return table.insert(self.msg_chain, ret)
+end
+
+function mt:fix_msg(ast, root)
+  assert(ast.type == "message")
+
+  local msg_name = ast.msg_name
+  if root then
+    msg_name = root.."."..msg_name
+  end
+
+  if self.msg_sym[msg_name] then
+    error(("[error line: %d] redefine message \'%s\'"):format(ast.line, ast.msg_name))
+  end
+
+  self.msg_sym[msg_name] = true
+
+  local ret = {
+    msg_name = msg_name,
+    value = {}
+  }
+
+  local value = ast.value
+
+  for i=1, #value do
+    local v = value[i]
+    if v.type == "field" then
+      if self.internal[v.field_type] then           -- internal type
+        add_field(ret, v)
+      elseif self.msg_sym[v.field_type] then        -- global message type
+        add_field(ret, v)
+      else                                       
+        local ft = msg_name.."."..v.field_type
+        if self.msg_sym[ft] then                    -- current message type
+          v.field_type = ft
+          add_field(ret, v)
+        else
+          error(("[error line: %d] invaild message type \'%s\' "):format(v.line, v.field_type))
+        end
+      end
+    elseif v.type == "message" then
+      self:fix_msg(v, msg_name)
+    else
+      assert(false)
+    end
+  end
+
+  self:add_msg(ret)
+end
+
+
+function mt:fix_ast(ast)
+  for i=1,#ast do
+    local msg = ast[i]
+    self:fix_msg(msg)
+  end
+end
+
+
+local function gen(s)
+  local parse = create()
+  local ast = parse:gen_ast(s)
+  if type(ast) == "table" then
+    local ret = parse:gen_fix(ast)
     return ret
   else
-    assert(type(ret) == "string")
-    return ret
+    return ast
   end
 end
 
 
 return gen
 
-
----- test
+-- -- test
 -- local t_str = [[
 -- message msg1 {
 --     integer a1;
 --     string a2;
---     a.b.c  a3;
 --     message msg2 {
 --       real a4;
+--       message msg5 {
+--       }
 --     }
-
 --     msg2  a5;
+--     msg2.msg5 a8;
+--     msg1.msg2 a9;
+--     msg1.msg2.msg a10;
 -- }
 
 -- message msg4 {
 --   real a6;
+--   msg1.msg2 a7;
 -- }
 -- ]]
 

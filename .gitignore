@@ -12,3 +12,4 @@ out
 *.out
 *.txt
 *.bnf
+./lp_inter/util.lua
