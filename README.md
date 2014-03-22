@@ -22,6 +22,15 @@ lp               # lite-proto interpreter
 llp.h
 lp_conf.h
 ```
+## `lp.lua`
+I implement new parse mes file by lua lpeg.
+you can input command `lua lp.lua -h`.
+for detil at 
+```
+./lp_inter/lp.lua           # generating .mes.lpb file
+./lp_inter/parse.lua        # parse .mes file to ast
+```
+
 ## Quick example
 First of all, you have to define a mes file:
 ```
